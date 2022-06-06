@@ -1,45 +1,65 @@
 // Assignment code here
 function generatePassword() {
- 
-    let passwordLength = prompt("Please enter a valid length of your password: ");;
+  let countRequiredConditions;
+  let errorMessage;
+  let haveLowerCase, haveUpperCase, haveNumbers, haveSpecial;
+  let hasPasswordLengthError = false;
+  let hasConditionsError = false;
+  let passwordLengthError = "Please include a positive integer in your input.";
+  let conditionsError = "Password Length is too short to generate a password which can satisfy all your requirements";
+
+  do {
+    errorMessage = "";
+    if (hasPasswordLengthError) {
+      errorMessage = passwordLengthError;
+    }
+
+    if (hasConditionsError) {
+      errorMessage = conditionsError;
+    }
+
+    passwordLength = (errorMessage === "") ? prompt("Please enter a valid length of your password: ") : prompt(errorMessage + "\n" + "Please enter a valid length of your password: ");
     passwordLength = Number(passwordLength);
-    while(!isValidLength(passwordLength)) {
-      passwordLength = prompt("Please don't include any non-numeric char in your input. \n Please enter a valid length of your password: ");
-      passwordLength = Number(passwordLength);
-    }; 
+    hasPasswordLengthError = !isValidLength(passwordLength);
+    if (hasPasswordLengthError) {
+      continue;
+    }
 
-  let haveLowerCase = confirm("Should the generated password include lowercase characters?");
-  let haveUpperCase = confirm("Should the generated password include uppercase characters?");
-  let haveNumbers = confirm("Should the generated password include numbers?");
-  let haveSpecial = confirm("Should the generated password include special characters?");
+    [countRequiredConditions, haveLowerCase, haveUpperCase, haveNumbers, haveSpecial] = getPasswordConditions();
+    hasConditionsError = countRequiredConditions <= passwordLength;
 
-  let countRequiredConditions = 0;
-  if(haveLowerCase) {
-    countRequiredConditions++;
-  }
-
-  if(haveUpperCase) {
-    countRequiredConditions++;
-  }
-
-  if(haveNumbers) {
-    countRequiredConditions++;
-  }
-
-  if(haveSpecial) {
-    countRequiredConditions++;
-  }
-
-  while(countRequiredConditions > passwordLength || !isValidLength(passwordLength)) {
-    passwordLength = prompt("Password Length is too short to generate a password which can satisfy all your requirements OR the input length is not valid \n Please enter a valid length of your password: ");
-    passwordLength = Number(passwordLength);
-  }
-
+  } while (hasPasswordLengthError || hasConditionsError);
 
 }
 
 function isValidLength(num) {
   return num != NaN || Number.isInteger(num) || num > 0;
+}
+
+function getPasswordConditions() {
+    let haveLowerCase = confirm("Should the generated password include lowercase characters?");
+    let haveUpperCase = confirm("Should the generated password include uppercase characters?");
+    let haveNumbers = confirm("Should the generated password include numbers?");
+    let haveSpecial = confirm("Should the generated password include special characters?");
+
+    let countRequiredConditions = 0;
+    if(haveLowerCase) {
+      countRequiredConditions++;
+    }
+
+    if(haveUpperCase) {
+      countRequiredConditions++;
+    }
+
+    if(haveNumbers) {
+      countRequiredConditions++;
+    }
+
+    if(haveSpecial) {
+      countRequiredConditions++;
+    }
+
+    return [countRequiredConditions, haveLowerCase, haveUpperCase, haveNumbers, haveSpecial];
 }
 
 // Get references to the #generate element
