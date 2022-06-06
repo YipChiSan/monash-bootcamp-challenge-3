@@ -35,10 +35,16 @@ function generatePassword() {
 
   } while (hasPasswordLengthError || hasConditionsError);
 
+  let res = [];
+
 }
 
 function isValidLength(num) {
   return num != NaN || Number.isInteger(num) || num > 0;
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
 }
 
 function getPasswordConditions() {
