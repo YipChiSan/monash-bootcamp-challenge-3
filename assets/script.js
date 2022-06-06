@@ -31,7 +31,7 @@ function generatePassword() {
     }
 
     [countRequiredConditions, haveLowerCase, haveUpperCase, haveNumbers, haveSpecial] = getPasswordConditions();
-    hasConditionsError = countRequiredConditions <= passwordLength;
+    hasConditionsError = countRequiredConditions < passwordLength;
 
   } while (hasPasswordLengthError || hasConditionsError);
 
