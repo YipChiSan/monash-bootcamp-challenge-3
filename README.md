@@ -18,7 +18,7 @@ GIVEN I need a new, secure password,
 
 ## Deployment
 
-My website is available [here](https://yipchisan.github.io/monash-bootcamp-challenge-2/).
+My website is available [here](https://yipchisan.github.io/monash-bootcamp-challenge-3/).
 
 ## Screenshot
 
